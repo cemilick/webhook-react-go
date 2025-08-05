@@ -44,7 +44,7 @@ const WebhookSite: React.FC = () => {
   const [selectedRequest, setSelectedRequest] = useState<WebhookData | null>(null);
   const [showRequestDetails, setShowRequestDetails] = useState(false);
   const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080/";
-  const { endpoints: endpoint, callbacks } = useWebhookWS("ws://" + import.meta.env.VITE_WEBSOCKET_URL || "localhost:8080/ws");
+  const { endpoints: endpoint, callbacks } = useWebhookWS(import.meta.env.VITE_WEBSOCKET_URL || "ws://localhost:8080/ws");
 
   // Load data from memory on component mount
   useEffect(() => {
