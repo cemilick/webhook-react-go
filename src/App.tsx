@@ -82,7 +82,14 @@ const WebhookSite: React.FC = () => {
   useEffect(() => {
     console.log('WebSocket endpoints update:', endpoint);
     if (endpoint.length > 0) {
-      console.log('New endpoint received:', endpoint);
+      let browserId = localStorage.getItem('BrowserID');
+      if (!browserId) return;
+      for (const ep of endpoint) {
+        if (ep.browserId == browserId ) {
+          console.log('New endpoint received:', ep.endpoint);
+          setEndpoints(prev => [ep, ...prev]);
+        }
+      }
       setEndpoints(prev => [...endpoint, ...prev]);
       if (!activeEndpoint && endpoint.length > 0) {
         setActiveEndpoint(endpoint[0].id);
