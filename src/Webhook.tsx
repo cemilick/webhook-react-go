@@ -5,6 +5,7 @@ interface WebSocketEvent {
   endpoint?: any;
   data?: any;
   uuid?: string;
+  browserId?: string;
 }
 
 export const useWebhookWS = (url: string) => {
@@ -25,13 +26,13 @@ export const useWebhookWS = (url: string) => {
 
       switch (message.type) {
         case "new-endpoint":
-            if (message.endpoint && message.endpoint.browserId === browserId) {
+            if (message.endpoint && message.browserId === browserId) {
                 console.log('New endpoint received:', message.endpoint);
                 setEndpoints((prev) => [message.endpoint, ...prev]);
             }
           break;
         case "incoming-webhook":
-          if (message.data && message.data.browserId === browserId) {
+          if (message.data && message.browserId === browserId) {
             console.log('Incoming webhook data:', message.data);
             setCallbacks((prev) => [...prev, message.data]);
           }
