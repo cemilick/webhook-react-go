@@ -14,15 +14,27 @@ export const useWebhookWS = (url: string) => {
   useEffect(() => {
     const ws = new WebSocket(url);
 
+    const browserId = localStorage.getItem('BrowserID');
+    if (!browserId) {
+      console.error("BrowserID not found in localStorage");
+      return;
+    }
+
     ws.onmessage = (event) => {
       const message: WebSocketEvent = JSON.parse(event.data);
 
       switch (message.type) {
         case "new-endpoint":
-          setEndpoints(() => message.endpoint);
+            if (message.endpoint && message.endpoint.browserId === browserId) {
+                console.log('New endpoint received:', message.endpoint);
+                setEndpoints((prev) => [message.endpoint, ...prev]);
+            }
           break;
         case "incoming-webhook":
-          setCallbacks(() => message.data);
+          if (message.data && message.data.browserId === browserId) {
+            console.log('Incoming webhook data:', message.data);
+            setCallbacks((prev) => [...prev, message.data]);
+          }
           break;
         default:
           break;
