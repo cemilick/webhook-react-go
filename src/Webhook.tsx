@@ -19,10 +19,10 @@ export const useWebhookWS = (url: string) => {
 
       switch (message.type) {
         case "new-endpoint":
-          setEndpoints((prev) => [message.endpoint, ...prev]);
+          setEndpoints(() => message.endpoint);
           break;
         case "incoming-webhook":
-          setCallbacks((prev) => [message.data, ...prev]);
+          setCallbacks(() => message.data);
           break;
         default:
           break;

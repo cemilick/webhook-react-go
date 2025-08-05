@@ -85,7 +85,7 @@ const WebhookSite: React.FC = () => {
       if (!browserId) return;
       for (const ep of endpoint) {
         if (ep.browserId == browserId ) {
-          console.log('New endpoint received:', ep.endpoint);
+          console.log('New endpoint received:', ep);
           setEndpoints(prev => [ep, ...prev]);
         }
       }
