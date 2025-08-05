@@ -82,7 +82,8 @@ const WebhookSite: React.FC = () => {
   useEffect(() => {
     if (endpoint.length > 0) {
       console.log('New endpoint received:', endpoint);
-      setEndpoints(prev => [...endpoint, ...prev]);
+      const newEndpoint = endpoint.filter(e => !endpoints.some(ep => ep.id === e.id));
+      setEndpoints(prev => [...newEndpoint, ...prev]);
       if (!activeEndpoint && endpoint.length > 0) {
         setActiveEndpoint(endpoint[0].id);
       }
