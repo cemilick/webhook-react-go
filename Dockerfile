@@ -1,5 +1,5 @@
 # Build Stage
-FROM node:22 as build
+FROM node:22 AS build
 
 # Set working directory
 WORKDIR /app
