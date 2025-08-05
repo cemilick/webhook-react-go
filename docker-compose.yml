@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: react-app-container
+    ports:
+      - "5178:80"
+    networks:
+      webhook_net:
+        ipv4_address: 172.19.0.3
+
+networks:
+  webhook_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
+          gateway: 172.19.0.1
