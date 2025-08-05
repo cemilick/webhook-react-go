@@ -54,7 +54,13 @@ const WebhookSite: React.FC = () => {
       localStorage.setItem('BrowserID', browserId);
     }
     
-    fetch(baseUrl + 'api/endpoints?browserId=' + browserId)
+    fetch(baseUrl + 'api/endpoints?browserId=' + browserId, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors'
+    })
     .then(async response => {
       let savedEndpoints = await response.json();
 
@@ -108,7 +114,13 @@ const WebhookSite: React.FC = () => {
     if (!browserId) return;
 
     const fetchRequests = () => {
-      fetch(baseUrl + `api/endpoints/${activeEndpoint}/data`)
+      fetch(baseUrl + `api/endpoints/${activeEndpoint}/data`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors'
+      })
         .then(async response => {
           if (!response.ok) return;
           const data = await response.json();
@@ -139,6 +151,7 @@ const WebhookSite: React.FC = () => {
         browserId: localStorage.getItem('BrowserID'),
         customId: customUrl.trim() || undefined,
       }),
+      mode: 'cors'
     }).then(async response => {
       if (!response.ok) {
         throw new Error(await response.text());
@@ -173,6 +186,7 @@ const WebhookSite: React.FC = () => {
       headers: {
         'Content-Type': 'application/json',
       },
+      mode: 'cors'
     }).then(response => {
       if (!response.ok) {
         throw new Error('Failed to delete endpoint');
