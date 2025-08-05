@@ -5,7 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: react-app-container
+    container_name: webhook-react-container
+    environment:
+      - VITE_API_URL=https://tools.wazzi.site/
+      - VITE_WEBSOCKET_URL=tools.wazzi.site/ws
     ports:
       - "5178:80"
     networks:
